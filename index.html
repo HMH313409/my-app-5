@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تحدي زيارة عاشوراء العائلي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Amiri', serif;
+            background-color: #f4efe6;
+            color: #2c3e50;
+            margin: 0;
+            padding: 15px;
+            background-image: linear-gradient(135deg, #f9f6f0 25%, transparent 25%),
+                              linear-gradient(225deg, #f9f6f0 25%, transparent 25%),
+                              linear-gradient(45deg, #f9f6f0 25%, transparent 25%),
+                              linear-gradient(315deg, #f9f6f0 25%, #ede4d3 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+            background-repeat: repeat;
+        }
+
+        .Signature {
+            Position: fixed;
+            Top: 10px;
+            Left: 15px;
+            Background-color: rgba(255, 255, 255, 0.9);
+            Padding: 4px 12px;
+            Border-radius: 20px;
+            Border: 1px solid #800020;
+            Font-size: 1rem;
+            Font-weight: bold;
+            Color: #800020;
+            Z-index: 1000;
+            Box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            Text-align: center;
+            Color: #800020;
+            Margin-top: 25px;
+            Margin-bottom: 20px;
+        }
+
+        .container {
+            Max-width: 800px;
+            Margin: auto;
+            Background: #ffffff;
+            Padding: 20px;
+            Border-radius: 10px;
+            Box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            Border: 1px solid #d8c8b8;
+        }
+
+        .form-group {
+            Margin-bottom: 15px;
+        }
+
+        Label {
+            Display: block;
+            Margin-bottom: 5px;
+            Font-weight: bold;
+            Color: #800020;
+        }
+
+        Input {
+            Width: 100%;
+            Padding: 10px;
+            Border: 1px solid #800020;
+            Border-radius: 5px;
+            Box-sizing: border-box;
+            Font-size: 1.1rem;
+        }
+
+        Button {
+            Background-color: #800020;
+            Color: white;
+            Padding: 10px 15px;
+            Border: none;
+            Border-radius: 5px;
+            Cursor: pointer;
+            Width: 100%;
+            Font-size: 1rem;
+            Font-weight: bold;
+        }
+
+        Button:hover {
+            Background-color: #5c0017;
+        }
+
+        .ziyarat-section {
+            Margin-top: 20px;
+            Border-top: 2px solid #800020;
+            Padding-top: 15px;
+        }
+
+        .ziyarat-text {
+            Line-height: 2.2;
+            Font-size: 1.4rem;
+            Text-align: justify;
+            Background: #fdfaf6;
+            Padding: 15px;
+            Border-radius: 5px;
+            Border-right: 4px solid #800020;
+            Margin-bottom: 15px;
+            White-space: pre-line;
+            Color: #1a252f;
+            Max-height: 500px;
+            Overflow-y: auto;
+            Box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+        }
+
+        .audio-player-box {
+            Background: #fdfaf6;
+            Border: 1px solid #d8c8b8;
+            Border-radius: 8px;
+            Padding: 20px;
+            Text-align: center;
+            Margin-top: 20px;
+            Box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        Table {
+            Width: 100%;
+            Border-collapse: collapse;
+            Margin-top: 15px;
+            Background: #fff;
+        }
+
+        Th, td {
+            Border: 1px solid #d0c0b0;
+            Padding: 10px;
+            Text-align: center;
+        }
+
+        Th {
+            Background-color: #800020;
+            Color: white;
+        }
+
+        Tr:nth-child(even) {
+            Background-color: #fcf8f3;
+        }
+
+        .admin-area {
+            Margin-top: 40px;
+            Border-top: 2px dashed #800020;
+            Padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signature">HMH-313 @</div>
+
+<div class="container">
+    <div class="header">
+        <h1>تحدي زيارة عاشوراء العائلي</h1>
+    </div>
+
+    <!-- تسجيل الاسم وبداية المشاركة -->
+    <div id="user-setup">
+        <div class="form-group">
+            <label for="username">أدخل اسم المشارك:</label>
+            <input type="text" id="username" placeholder="مثال: محمد علي">
+        </div>
+        <button id="start-btn" onclick="registerUser()">حفظ الاسم وبدء الزيارة</button>
+    </div>
+
+    <!-- قسم الزيارة -->
+    <div id="ziyarat-section" class="ziyarat-section" style="display:none;">
+        <h2>نص الزيارة الشريفة</h2>
+        <div id="ziyarat-text" class="ziyarat-text"></div>
+
+        <!-- مشغل صوتي مباشر -->
+        <div class="audio-player-box">
+            <h3 style="margin-top: 0; color: #800020;">الاستماع الصوتي للزيارة</h3>
+            <audio controls style="width: 100%; max-width: 500px;">
+                <source src="https://www.shiasource.com/wp-content/uploads/2018/08/ali_fani_ziyaratashura.mp3" type="audio/mpeg">
+                متصفحك لا يدعم تشغيل الصوت.
+            </audio>
+        </div>
+    </div>
+
+    <!-- لوحة الصدارة -->
+    <div style="margin-top: 30px;">
+        <h2>لوحة الصدارة</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>النقاط</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
+    </div>
+
+    <!-- لوحة التحكم بالمشرفين -->
+    <div class="admin-area">
+        <h3 style="color: #444;">لوحة المشرفين</h3>
+        <div class="form-group">
+            <label for="admin-code">كود المشرف:</label>
+            <input type="text" id="admin-code" placeholder="أدخل الكود">
+        </div>
+        <button onclick="accessAdmin()" style="background-color: #555;">الدخول للوحة التحكم</button>
+
+        <div id="admin-tools" style="display:none; margin-top: 15px;">
+            <h4>إدارة النقاط</h4>
+            <div class="form-group">
+                <input type="text" id="admin-username" placeholder="اسم المشارك">
+            </div>
+            <div class="form-group">
+                <input type="number" id="point-adjustment" placeholder="عدد النقاط (مثال: 1 أو -1)">
+            </div>
+            <button onclick="adjustPoints()" style="background-color: #d35400;">تعديل النقاط</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ADMIN_PASS = "1433";
+    let currentUser = "";
+
+    const fullZiyaratText = `اَلسَّلامُ عَلَيْكَ يا اَبا عَبْدِ اللهِ، اَلسَّلامُ عَلَيْكَ يا بْنَ رَسُولِ اللهِ، اَلسَّلامُ عَلَيْكَ يا بْنَ اَمِيرِ الْمُؤْمِنِينَ وَسَيِّدِ الْوَصِيِّينَ، اَلسَّلامُ عَلَيْكَ يا بْنَ فاطِمَةَ سَيِّدَةِ نِساءِ الْعالَمِينَ، اَلسَّلامُ عَلَيْكَ يا ثارَ اللهِ وَابْنَ ثارِهِ وَالْوِتْرَ الْمَوْتُورَ، اَلسَّلامُ عَلَيْكَ وَعَلَى الاَرْواحِ الَّتي حَلَّتْ بِفِنائِكَ عَلَيْكُمْ مِنّي جَميعاً سَلامُ اللهِ اَبَداً ما بَقيتُ وَبَقيَ اللَّيْلُ وَالنَّهارُ يا اَبا عَبْدِ اللهِ لَقَدْ عَظُمَتِ الرَّزِيَّةُ وَجَلَّتْ وَعَظُمَتْ المُصيبَةُ بِكَ عَلَيْنا وَعَلهى جَميعِ اَهْلِ السَّماواتِ وَالاَرْضِ فَلَعَنَ اللهُ اُمَّةً اَسَّسَتْ اَساسَ الظُّلْمِ وَالْجَوْرِ عَلَيْكُمْ اَهْلَ الْبَيْتِ وَلَعَنَ اللهُ اُمَّةً دَفَعَتْكُمْ عَنْ مَقامِكُمْ وَاَزالَتْكُمْ عَنْ مَراتِبِكُمُ الَّتي رَتَّبَكُمُ اللهُ فيها وَلَعَنَ اللهُ اُمَّةً قَتَلَتْكُمْ وَلَعَنَ اللهُ الْمُمَهِّدِينَ لَهُمْ بِالتَّمْكِينِ مِنْ قِتالِكُمْ بَرِئْتُ اِلَى اللهِ وَاِلَيْكُمْ مِنْهُمْ وَمِنْ اَشْياعِهِمْ وَاَتْباعِهِمْ وَاَوْلِيائِهِمْ، يا اَبا عَبْدِ اللهِ اِنّي سِلْمٌ لِمَنْ سالَمَكُمْ وَحَرْبٌ لِمَنْ حارَبَكُمْ اِلى يَوْمِ الْقِيامَةِ، وَلَعَنَ اللهُ آلَ زِيَاد وَآلَ مَرْوانَ، وَلَعَنَ اللهُ بَنِي اُمَيَّةَ قاطِبَةً، وَلَعَنَ اللهُ ابْنَ مَرْجانَةَ، وَلَعَنَ اللهُ عُمَرَ بْنَ سَعْد، وَلَعَنَ اللهُ شِمْراً، وَلَعَنَ اللهُ اُمَّةً اَسْرَجَتْ وَاَلْجَمَتْ وَتَنَقَّبَتْ لِقِتالِكَ، بِاَبي اَنْتَ وَاُمّي لَقَدْ عَظُمَ مُصابي بِكَ فَأَسْأَلُ اللهَ بِالْشَّاْنِ الَّذي لَكُمْ عِنْدَهُ وَبِالْمَحَلِّ الَّذي لَكُمْ لَدَيْهِ اَنْ يُعْطِيَني بِمُصابي بِكُمْ اَفْضَلَ ما يُعْطي مُصاباً بِـمُصيبَتِهِ، مُصيبَةً ما اَعْظَمَها وَاَعْظَمَ رَزِيَّتَها فِي الاِسْلامِ وَفِي جَميعِ السَّماواتِ وَالاَرْضِ.
+
+اَللّـهُمَّ اجْعَلْني فِي مَقامي هذا مِمَّنْ تَنالُهُ مِنْكَ صَلَواتٌ وَرَحْمَةٌ وَمَغْفِرَةٌ، اَللّـهُمَّ اجْعَلْ مَحْياىَ مَحْيا مُحَمَّد وَآلِ مُحَمِّد وَمَماتي مَماتَ مُحَمَّد وَآلِ مُحَمِّد.
+
+اَللّـهُمَّ اِنَّ هذا يَوْمٌ تَبَارَكَتْ بِهِ بَنُو اُمَّةَ السُّوءِ وَابْنُ آكِلَةِ الاَكْبادِ، اَللّـهُمَّ الْعَنْ اَبا سُفْيانَ وَمُعاوِيَةَ وَيَزِيدَ بْنَ مُعاوِيَةَ عَلَيْهِمْ مِنْكَ اللَّعْنُ اَبَدَ الآبِدينَ، وَهذا يَوْمٌ فَرِحَتْ بِهِ آلُ زِيَاد وَآلُ مَرْوانَ بِقَتْلِهِمُ الْحُسَيْن صَلَواتُ اللهِ عَلَيْهِ.
+
+اَللّـهُمَّ فَضاعِفْ عَلَيْهِمُ اللَّعْنَ مِنْكَ وَالْعَذابَ الاَليمَ، اَللّـهُمَّ اِنّي اَتَقَرَّبُ اِلَى اللهِ فِي هذَا الْيَوْمِ وَفِي مَوْقِفي هذا وَاَيّامِ حَياتي بِالْبَراءَةِ مِنْهُمْ وَاللَّعْنَةِ عَلَيْهِمْ وَبِالْمُوالاةِ لِنَبِيِّكَ وَآلِ نَبِيِّكَ عَلَيْهِ وَعَلَيْهِمُ السَّلامُ.
+
+اَللّـهُمَّ الْعَنْ اَوَّلَ ظالِمٍ ظَلَمَ حَقَّ مُحَمَّد وَآلِ مُحَمِّد وَآخِرَ تابِع لَهُ عَلى ذلِكَ، اَللّـهُمَّ الْعَنِ العِصابَةَ الَّتي جاهَدَتِ الْحُسَيْـنَ وَشايَعَتْ وَبايَعَتْ وَتابَعَتْ عَلَى قَتْلِهِ، اَللّـهُمَّ الْعَنْهُمْ جَميعاً.
+
+Aَلسَّلامُ عَلَيْكَ يا اَبا عَبْدِ اللهِ وَعَلَى الاَرْواحِ الَّتي حَلَّتْ بِفِنائِكَ، عَلَيْكَ مِنّي سَلامُ اللهِ اَبَداً ما بَقيتُ وَبَقيَ اللَّيْلُ وَالنَّهارُ، وَلا جَعَلَهُ اللهُ آخِرَ الْعَهْدِ مِنّي لِزِيارَتِكُمْ، اَلسَّلامُ عَلَى الْحُسِينِ وَعَلَى عَلِيِّ بْنِ الْحُسِينِ وَعَلَى اَوْلادِ الْحُسِينِ وَعَلَى اَصْحابِ الْحُسَيْـنِ.
+
+اَللّـهُمَّ خُصَّ اَنْتَ اَوَّلَ ظالِمٍ بِاللَّعْنِ مِنّي وَابْدَأْ بِهِ اَوَّلاً ثُمَّ الثّانِيَ وَالثّالِثَ وَالرَّابِعَ، اَللّـهُمَّ الْعَنْ يَزِيدَ خامِساً وَالْعَنْ عُبَيْدَ اللهِ بْنَ زِيَاد وَابْنَ مَرْجانَةَ وَعُمَرَ بْنَ سَعْد وَشِمْراً وَآلَ اَبِي سُفْيانَ وَآلَ زياد وَآلَ مَرْوانَ اِلى يَوْمِ الْقِيامَةِ.
+
+اَللّـهُمَّ لَكَ الْحَمْدُ حَمْدَ الشّاكِرينَ لَكَ عَلى مُصابِهِمْ، اَلْحَمْدُ للهِ عَلى عَظِيمِ رَزِيَّتي، اَللّـهُمَّ ارْزُقْني شَفاعَةَ الْحُسِينِ يَوْمَ الْوُرُودِ، وَثَبِّتْ لي قَدَمَ صِدْق عِنْدَكَ مَعَ الْحُسِينِ وَاَصْحابِ الْحُسِينِ الَّذِينَ بَذَلُوا مُهَجَهُمْ دُونَ الْحُسِينِ عَلَيْهِ السَّلامُ.`;
+
+    function initApp() {
+        document.getElementById('ziyarat-text').innerText = fullZiyaratText;
+        loadLeaderboard();
+
+        const savedUser = localStorage.getItem("ziyarat_username");
+        if (savedUser) {
+            currentUser = savedUser;
+            document.getElementById('username').value = currentUser;
+            document.getElementById('start-btn').innerText = "تحديث الاسم ومتابعة الزيارة";
+        }
+    }
+
+    function registerUser() {
+        const nameInput = document.getElementById('username').value.trim();
+        if (!nameInput) {
+            alert("يرجى إدخال الاسم.");
+            return;
+        }
+
+        const today = new Date().toISOString().split('T')[0];
+        const lastPointsDate = localStorage.getItem("last_points_date_" + nameInput);
+
+        currentUser = nameInput;
+        localStorage.setItem("ziyarat_username", currentUser);
+
+        let scores = JSON.parse(localStorage.getItem("ziyarat_scores") || "{}");
+        if (scores[currentUser] === undefined) {
+            scores[currentUser] = 0;
+        }
+
+        if (lastPointsDate !== today) {
+            scores[currentUser] += 1;
+            localStorage.setItem("last_points_date_" + nameInput, today);
+            localStorage.setItem("ziyarat_scores", JSON.stringify(scores));
+            alert("تم تسجيل دخولك لليوم! تمت إضافة نقطة واحدة.");
+        } else {
+            alert("أهلاً بك مجدداً. تم احتساب نقطة اليوم بالفعل.");
+        }
+
+        loadLeaderboard();
+        document.getElementById('ziyarat-section').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('ziyarat-section').offsetTop, behavior: 'smooth' });
+    }
+
+    function loadLeaderboard() {
+        let scores = JSON.parse(localStorage.getItem("ziyarat_scores") || "{}");
+        const tbody = document.getElementById('leaderboard-body');
+        tbody.innerHTML = '';
+
+        for (let user in scores) {
+            const row = `<tr><td>${user}</td><td>${scores[user]}</td></tr>`;
+            tbody.innerHTML += row;
+        }
+    }
+
+    function accessAdmin() {
+        const code = document.getElementById('admin-code').value;
+        if (code === ADMIN_PASS) {
+            document.getElementById('admin-tools').style.display = 'block';
+        } else {
+            alert("كود المشرف غير صحيح.");
+        }
+    }
+
+    function adjustPoints() {
+        const user = document.getElementById('admin-username').value.trim();
+        const adjustment = parseInt(document.getElementById('point-adjustment').value);
+        if(!user || isNaN(adjustment)) {
+            alert("يرجى إدخال الاسم وقيمة النقاط بشكل صحيح.");
+            return;
+        }
+        let scores = JSON.parse(localStorage.getItem("ziyarat_scores") || "{}");
+        scores[user] = (scores[user] || 0) + adjustment;
+        localStorage.setItem("ziyarat_scores", JSON.stringify(scores));
+        loadLeaderboard();
+        alert("تم تعديل النقاط بنجاح!");
+    }
+
+    window.onload = initApp;
+</script>
+
+</body>
+</html>
